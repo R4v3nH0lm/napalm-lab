@@ -1,15 +1,24 @@
+kali = "Sliim/kali-linux-2.0-amd64"
+centos = "centos/7"
+cumulus = "cumulus-linux-3.1.1"
+junos = "juniper/ffp-12.1X47-D15.4-packetmode"
+ubuntu = "ubuntu/trusty64"
+veos = "vEOS-lab-4.17.3F"
+
 Vagrant.configure("2") do |config|
-  
+
   config.vm.define "napalm" do |napalm|
-    napalm.vm.box = "ubuntu/trusty64"
+    napalm.vm.box = "ubuntu"
     napalm.vm.hostname = "napalm"
     napalm.vm.network "private_network", virtualbox__intnet: "swp1"
     napalm.vm.network "private_network", virtualbox__intnet: "swp2"
     napalm.vm.network "private_network", virtualbox__intnet: "swp3"
     #napalm.vm.network "private_network", virtualbox__intnet: "swp4"
     napalm.vm.provision "shell", inline: <<-SHELL
-      apt-get update
-      apt-get install -y apache2
+      sudo apt-get install -y lldpd
+      sudo apt-get install -y python-pip python-dev build-essential 
+      sudo pip install --upgrade pip 
+      sudo pip install napalm
       SHELL
   end
 end
