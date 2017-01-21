@@ -6,13 +6,12 @@ ubuntu = "ubuntu/trusty64"
 veos = "vEOS-lab-4.17.3F"
 
 Vagrant.configure("2") do |config|
-
   config.vm.define "napalm" do |napalm|
-    napalm.vm.box = "ubuntu"
+    napalm.vm.box = ubuntu
     napalm.vm.hostname = "napalm"
     napalm.vm.network "private_network", virtualbox__intnet: "swp1"
     napalm.vm.network "private_network", virtualbox__intnet: "swp2"
-    napalm.vm.network "private_network", virtualbox__intnet: "swp3"
+    #napalm.vm.network "private_network", virtualbox__intnet: "swp3"
     #napalm.vm.network "private_network", virtualbox__intnet: "swp4"
     napalm.vm.provision "shell", inline: <<-SHELL
       sudo apt-get install -y lldpd
@@ -21,4 +20,18 @@ Vagrant.configure("2") do |config|
       sudo pip install napalm
       SHELL
   end
+
+    config.vm.define "veos" do |veos|
+      veos.vm.box = 
+      veos.vm.provider :virtualbox do |vb|
+        #vb.customize ["modifyvm", :id, "--memory", "512"]
+        #vb.customize ["modifyvm", :id, "--cpus", "1"]
+        #vb.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+      end
+      veos.vm.hostname = "veos"
+      veos.vm.network "private_network", virtualbox__intnet: "swp1"
+      #veos.vm.network "private_network", virtualbox__intnet: "swp2"
+      #veos.vm.network "private_network", virtualbox__intnet: "swp3"
+      #veos.vm.network "private_network", virtualbox__intnet: "swp4"
+    end
 end
