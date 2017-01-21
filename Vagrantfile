@@ -9,14 +9,14 @@ Vagrant.configure("2") do |config|
   config.vm.define "napalm" do |napalm|
     napalm.vm.box = ubuntu
     napalm.vm.hostname = "napalm"
-    napalm.vm.network "private_network", virtualbox__intnet: "link_1"
-    napalm.vm.network "private_network", virtualbox__intnet: "link_2"
+    napalm.vm.network "private_network", virtualbox__intnet: "link_1", ip: "10.0.1.100"
+    napalm.vm.network "private_network", virtualbox__intnet: "link_2", ip: "10.0.2.100"
     #napalm.vm.network "private_network", virtualbox__intnet: "swp3"
     #napalm.vm.network "private_network", virtualbox__intnet: "swp4"
     napalm.vm.provision "shell", inline: <<-SHELL
       sudo apt-get install -y lldpd
+      sudo apt-get install libffi-dev libssl-dev
       sudo apt-get install -y python-pip python-dev build-essential 
-      sudo pip install --upgrade pip 
       sudo pip install napalm
     SHELL
   end
@@ -29,7 +29,7 @@ Vagrant.configure("2") do |config|
       #vb.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
     end
     vEOS.vm.hostname = "vEOS"
-    vEOS.vm.network "private_network", virtualbox__intnet: "swp1"
+    vEOS.vm.network "private_network", virtualbox__intnet: "link_1", ip: "169.254.1.11", auto_config: false
     #vEOS.vm.network "private_network", virtualbox__intnet: "swp2"
     #vEOS.vm.network "private_network", virtualbox__intnet: "swp3"
     #vEOS.vm.network "private_network", virtualbox__intnet: "swp4"
@@ -44,7 +44,7 @@ Vagrant.configure("2") do |config|
     end
     juniper.vm.hostname = "juniper"
     #juniper.vm.network "private_network", virtualbox__intnet: "swp1"
-    juniper.vm.network "private_network", virtualbox__intnet: "swp2"
+    juniper.vm.network "private_network", virtualbox__intnet: "link_2", ip: "169.254.1.11", auto_config: false
     #juniper.vm.network "private_network", virtualbox__intnet: "swp3"
     #juniper.vm.network "private_network", virtualbox__intnet: "swp4"
   end
