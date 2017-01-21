@@ -19,10 +19,10 @@ Vagrant.configure("2") do |config|
       sudo pip install --upgrade pip 
       sudo pip install napalm
       SHELL
-  end
+    end
 
     config.vm.define "veos" do |veos|
-      veos.vm.box = 
+      veos.vm.box = veos
       veos.vm.provider :virtualbox do |vb|
         #vb.customize ["modifyvm", :id, "--memory", "512"]
         #vb.customize ["modifyvm", :id, "--cpus", "1"]
@@ -34,4 +34,18 @@ Vagrant.configure("2") do |config|
       #veos.vm.network "private_network", virtualbox__intnet: "swp3"
       #veos.vm.network "private_network", virtualbox__intnet: "swp4"
     end
+
+      config.vm.define "junos" do |junos|
+        junos.vm.box = junos
+        junos.vm.provider :virtualbox do |vb|
+          #vb.customize ["modifyvm", :id, "--memory", "512"]
+          #vb.customize ["modifyvm", :id, "--cpus", "1"]
+          #vb.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+        end
+        junos.vm.hostname = "junos"
+        #junos.vm.network "private_network", virtualbox__intnet: "swp1"
+        #junos.vm.network "private_network", virtualbox__intnet: "swp2"
+        #junos.vm.network "private_network", virtualbox__intnet: "swp3"
+        #junos.vm.network "private_network", virtualbox__intnet: "swp4"
+      end
 end
