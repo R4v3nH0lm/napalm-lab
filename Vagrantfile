@@ -44,7 +44,7 @@ Vagrant.configure("2") do |config|
         end
         junos.vm.hostname = "junos"
         #junos.vm.network "private_network", virtualbox__intnet: "swp1"
-        #junos.vm.network "private_network", virtualbox__intnet: "swp2"
+        junos.vm.network "private_network", virtualbox__intnet: "swp2"
         #junos.vm.network "private_network", virtualbox__intnet: "swp3"
         #junos.vm.network "private_network", virtualbox__intnet: "swp4"
       end
