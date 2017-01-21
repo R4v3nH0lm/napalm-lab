@@ -17,7 +17,7 @@ N/A
 
 ## Tree ##
 	.
-	└── F5_Lab
-	    ├── README.md
-	    ├── Vagrantfile
-	    └── nginx_install.sh
+	└── napalm_lab
+		├── README.md
+		└── Vagrantfile
+	   
