@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
     #napalm.vm.network "private_network", virtualbox__intnet: "swp4"
     napalm.vm.provision "shell", inline: <<-SHELL
       sudo apt-get install -y lldpd
-      sudo apt-get install libffi-dev libssl-dev
+      sudo apt-get install -y libffi-dev libssl-dev libxml2-dev libxslt1-dev
       sudo apt-get install -y python-pip python-dev build-essential 
       sudo pip install napalm
     SHELL
