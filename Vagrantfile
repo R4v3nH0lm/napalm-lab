@@ -8,6 +8,11 @@ veos = "vEOS-lab-4.17.3F"
 Vagrant.configure("2") do |config|
   config.vm.define "napalm" do |napalm|
     napalm.vm.box = ubuntu
+    napalm.vm.provider :virtualbox do |vb|
+      vb.customize ["modifyvm", :id, "--memory", "1024"]
+      #vb.customize ["modifyvm", :id, "--cpus", "1"]
+      #vb.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+    end
     napalm.vm.hostname = "napalm"
     napalm.vm.network "private_network", virtualbox__intnet: "link_1", ip: "10.0.1.100"
     napalm.vm.network "private_network", virtualbox__intnet: "link_2", ip: "10.0.2.100"
@@ -23,6 +28,8 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "vEOS" do |vEOS|
     vEOS.vm.box = veos
+    vEOS.vm.network :forwarded_port, guest: 22, host: 12201, id: 'ssh'
+    vEOS.vm.network :forwarded_port, guest: 443, host: 12443, id: 'https'
     vEOS.vm.provider :virtualbox do |vb|
       #vb.customize ["modifyvm", :id, "--memory", "512"]
       #vb.customize ["modifyvm", :id, "--cpus", "1"]
@@ -44,7 +51,7 @@ Vagrant.configure("2") do |config|
     end
     juniper.vm.hostname = "juniper"
     #juniper.vm.network "private_network", virtualbox__intnet: "swp1"
-    juniper.vm.network "private_network", virtualbox__intnet: "link_2", ip: "169.254.1.11", auto_config: false
+    juniper.vm.network "private_network", virtualbox__intnet: "link_2"
     #juniper.vm.network "private_network", virtualbox__intnet: "swp3"
     #juniper.vm.network "private_network", virtualbox__intnet: "swp4"
   end
