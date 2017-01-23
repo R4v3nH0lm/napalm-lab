@@ -18,6 +18,7 @@ Vagrant.configure("2") do |config|
     napalm.vm.network "private_network", virtualbox__intnet: "link_2", ip: "10.0.2.100"
     #napalm.vm.network "private_network", virtualbox__intnet: "swp3"
     #napalm.vm.network "private_network", virtualbox__intnet: "swp4"
+    napalm.vm.synced_folder ".", "/home/vagrant/"
     napalm.vm.provision "shell", inline: <<-SHELL
       sudo apt-get install -y lldpd
       sudo apt-get install -y libffi-dev libssl-dev libxml2-dev libxslt1-dev

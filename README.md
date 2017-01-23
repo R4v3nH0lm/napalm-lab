@@ -13,7 +13,7 @@ This will require the following vagrant boxes be available on your system:
 - vEOS-lab-4.17.3F
 
 ### VirtualBox ###
-N/A
+The VM running napalm will require atleast 1024MB to run or else napalm will fail to compile during pip install.
 
 ## Tree ##
 	.
